@@ -29,6 +29,8 @@ public class mainScreen extends JFrame implements ActionListener{
 		add(Scrollpane);
 		pack();//
 		
+		JButton actionButton = new JButton("hhhhhhhhhhhhhhhhhhhh");
+		add(actionButton);
 	}
 	
 	@Override
