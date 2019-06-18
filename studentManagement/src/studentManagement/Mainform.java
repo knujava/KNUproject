@@ -23,12 +23,49 @@ class main extends JFrame{
 }
 
 public class Mainform extends JFrame implements ActionListener{
-	public static final int WIDTH = 500;
-	public static final int HEIGHT = 700;
+	public static final int WIDTH = 400;
+	public static final int HEIGHT = 500;
+	
+	private JPanel up = new JPanel(); 
+	private JPanel down = new JPanel(); // up은 검색, down은 보여주기
+	private JTextField Num = new JTextField(25);
+	private JTextField PW = new JTextField(25);
+	private JTextField Name = new JTextField(25);
+	private JTextField Subject = new JTextField(25);
+	
 	public Mainform() {
 		setSize(WIDTH, HEIGHT);
 		setTitle("Main Form");
 		setLayout(new GridLayout(2,1));
+		up.setLayout(new GridLayout(4,1));
+		
+		JPanel p1 = new JPanel();
+		p1.setLayout(new FlowLayout());
+		p1.add(new JLabel("학번"));
+		p1.add(Num);
+		up.add(p1);
+		
+		JPanel p2 = new JPanel();
+		p2.setLayout(new FlowLayout());
+		p2.add(new JLabel("PW"));
+		p2.add(PW);
+		up.add(p2);
+		
+		JPanel p3 = new JPanel();
+		p3.setLayout(new FlowLayout());
+		p3.add(new JLabel("이름"));
+		p3.add(Name);
+		up.add(p3);
+		
+		JPanel p4 = new JPanel();
+		p4.setLayout(new FlowLayout());
+		p4.add(new JLabel("학과"));
+		p4.add(Subject);
+		up.add(p4);
+		
+		add(up);
+		add(down);
+		
 	}
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand();
