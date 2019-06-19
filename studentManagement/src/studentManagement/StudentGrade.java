@@ -9,6 +9,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -18,6 +21,7 @@ public class StudentGrade extends JFrame implements ActionListener{
 	
 	
 	private JPanel tablePanel;
+	private JTextField num;
 	private JTextField name;
 	private JTextField grade;
 	private JTextField subj;
@@ -25,9 +29,19 @@ public class StudentGrade extends JFrame implements ActionListener{
 	
 	public StudentGrade() {
 		super("WELCOME! :::: PROFESSOR");
-		setSize(500,700);
+		setSize(500,400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
+		
+		JMenu usermenu = new JMenu("분류");
+		
+		JMenuItem alphaChoice = new JMenuItem("alpha");
+		alphaChoice.addActionListener(this);
+		usermenu.add(alphaChoice);
+		
+		JMenuBar bar =new JMenuBar();
+		bar.add(usermenu);
+		setJMenuBar(bar);
 		
 		String header[] = {"학번","이름","과목명","평점"};
 		String contents[][] = {
@@ -41,9 +55,46 @@ public class StudentGrade extends JFrame implements ActionListener{
 		
 		JTable table = new JTable(contents, header);
 		JScrollPane Scrollpane = new JScrollPane(table);
-		add(Scrollpane, BorderLayout.NORTH);
+		add(Scrollpane, BorderLayout.CENTER);
 		//pack();//
 		
+		JPanel userPanel = new JPanel();
+		userPanel.setLayout(new GridLayout(2, 1));
+		
+		//
+		JPanel textPanel = new JPanel();
+		textPanel.setLayout(new FlowLayout());
+
+		JLabel numps = new JLabel("학번:");
+		textPanel.add(numps);
+		
+		num = new JTextField(7);
+		num.setEditable(false);
+		textPanel.add(num);
+		
+		JLabel nameps = new JLabel("이름:");
+		textPanel.add(nameps);
+		
+		name = new JTextField(7);
+		name.setEditable(false);
+		textPanel.add(name);
+		
+		JLabel subjps = new JLabel("과목:");
+		textPanel.add(subjps);
+		
+		subj = new JTextField(7);
+		textPanel.add(subj);
+		
+		JLabel gradeps = new JLabel("성적:");
+		textPanel.add(gradeps);
+		
+		grade = new JTextField(7);
+		textPanel.add(grade);
+		
+		userPanel.add(textPanel);
+		//
+		
+		//
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridLayout(1, 3));
 		
@@ -59,32 +110,10 @@ public class StudentGrade extends JFrame implements ActionListener{
 		actionButton_re.addActionListener(this);//
 		buttonPanel.add(actionButton_re);
 		
-		add(buttonPanel, BorderLayout.SOUTH);
+		userPanel.add(buttonPanel);
+		//
 		
-		JPanel textPanel = new JPanel();
-		textPanel.setLayout(new FlowLayout());
-
-		JLabel nameps = new JLabel("이름 : ");
-		textPanel.add(nameps);
-		
-		name = new JTextField(10);
-		textPanel.add(name);
-		
-		JLabel subjps = new JLabel("과목 : ");
-		textPanel.add(subjps);
-		
-		subj = new JTextField(10);
-		textPanel.add(subj);
-		
-		JLabel gradeps = new JLabel("성적 : ");
-		textPanel.add(gradeps);
-		
-		grade = new JTextField(10);
-		textPanel.add(grade);
-		
-		
-		
-		add(textPanel, BorderLayout.CENTER);
+		add(userPanel, BorderLayout.SOUTH);
 	}
 	//화면구성하기
 	
