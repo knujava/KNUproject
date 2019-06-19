@@ -80,6 +80,9 @@ public class SignUpScreen extends JFrame implements ActionListener{
 		if(String.valueOf(PWinput.getPassword()).equals(String.valueOf(second.getPassword())))
 			if(String.valueOf(PWinput.getPassword()).equals("") || IDinput.getText().equals(""))
 				stateScreen.setText("ID와 비밀번호는 공란이 될 수 없습니다");
+			else if(IDinput.getText().contains(" ") || String.valueOf(PWinput.getPassword()).contains(" ")) {
+				stateScreen.setText("ID와 비밀번호에는 공란이 올 수 없습니다.");
+			}
 			else {
 				if(checkValidity(IDinput.getText(),String.valueOf(second.getPassword()))) {
 					BufferedWriter bufferedWriter = null;
