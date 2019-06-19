@@ -1,7 +1,6 @@
 package studentManagement;
 
 import javax.swing.*;
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -50,18 +49,21 @@ public class LoginScreen extends JFrame implements ActionListener, KeyListener{
 		LoginButton.addActionListener(this);
 		InputPanel.add(LoginButton);
 		
-		
+		JButton signup = new JButton("회원 가입");
+		signup.addActionListener(this);
+		add(signup,BorderLayout.SOUTH);
 	}
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == 13) {
 			searchID(IDinput.getText(),String.valueOf(PWinput.getPassword()));
 		}
-		
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
+		if(e.getKeyCode() == 13) {
+			searchID(IDinput.getText(),String.valueOf(PWinput.getPassword()));
+		}
 		
 	}
 	@Override
@@ -71,7 +73,12 @@ public class LoginScreen extends JFrame implements ActionListener, KeyListener{
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		searchID(IDinput.getText(),String.valueOf(PWinput.getPassword()));
+		if(e.getActionCommand() == "Login")
+			searchID(IDinput.getText(),String.valueOf(PWinput.getPassword()));
+		else {
+			SignUpScreen signup = new SignUpScreen();
+			signup.setVisible(true);
+		}
 		
 	}
 	private boolean searchID(String ID, String PW) {
@@ -118,6 +125,13 @@ public class LoginScreen extends JFrame implements ActionListener, KeyListener{
 			if(!isSuccess&&!IDFound)
 				stateScreen.setText("등록 되지 않은 ID 입니다");
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			filereader.close();
+			bufReader.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return isSuccess;
