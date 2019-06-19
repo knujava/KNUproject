@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 public class StudentGrade extends JFrame implements ActionListener{
 	
@@ -53,7 +54,13 @@ public class StudentGrade extends JFrame implements ActionListener{
 		};
 		tablePanel = new JPanel();
 		
-		JTable table = new JTable(contents, header);
+		DefaultTableModel model = new DefaultTableModel(contents, header) {
+			public boolean isCellEditable(int i, int c) {
+				return false;
+			}
+		};
+		
+		JTable table = new JTable(model);
 		JScrollPane Scrollpane = new JScrollPane(table);
 		add(Scrollpane, BorderLayout.CENTER);
 		//pack();//
