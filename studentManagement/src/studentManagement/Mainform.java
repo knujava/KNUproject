@@ -6,35 +6,18 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.Scanner;
 
-class main extends JFrame{
-	// 버튼을 임의로 만들고 Login이 눌려졌을때 이후의 main 환경을 만들기 위해
-	public static void main(String[] args) {
-		main prac = new main();
-		prac.setVisible(true);
-	}
-	public main() {
-		setSize(500, 400);
-		setTitle("버튼 예제");
-		setLayout(new BorderLayout());
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		JButton b = new JButton("Login");
-		b.addActionListener(new Mainform());
-		add(b, BorderLayout.SOUTH);
-	}
-}
 class Error extends JFrame implements ActionListener{
 	public Error(){
 		setSize(400, 200);
 		setTitle("메시지");
 		setLayout(new BorderLayout());
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-		
+
 		JLabel message = new JLabel("빈칸이 있습니다. 채워주세요");
 		message.setFont(new Font("SansSerif", Font.BOLD, 20));
 		message.setHorizontalAlignment(SwingConstants.CENTER);
 		message.setVerticalAlignment(SwingConstants.CENTER);
-		
+
 		add(message, BorderLayout.CENTER);
 		JPanel bp = new JPanel();
 		JButton ok = new JButton("확인");
@@ -65,7 +48,7 @@ public class Mainform extends JFrame implements ActionListener, MouseListener{
 
 	private JTable table = new JTable();
 	private DefaultTableModel model;
-	
+
 	public Mainform() {
 		setSize(WIDTH, HEIGHT);
 		setTitle("Main Form");
@@ -134,7 +117,7 @@ public class Mainform extends JFrame implements ActionListener, MouseListener{
 		buttonPanel.add(delete);
 		down.add(buttonPanel, BorderLayout.SOUTH);
 		int num_of_student = 0;
-		
+
 		try (Scanner sc = new Scanner(new FileInputStream("Student.txt"))){
 			while(sc.hasNextLine()) {
 				String temp = sc.nextLine();
@@ -146,13 +129,13 @@ public class Mainform extends JFrame implements ActionListener, MouseListener{
 		}
 		String header[] = {"학번","이름","과목명","성적"};
 		String contents[][] = new String[num_of_student][4];
-/*
+		/*
 			{"2016000000", "김철수", "심리학", "4.3"},
 			{"2015000000", "조짱구", "자바", "0.7"},
 			{"2017000000", "최유리", "자료구조", "3.3"},
 			{"2018000000", "박맹구", "팔공산", "1.7"},
 			{"2019000000", "이훈", "초급교양영어", "2.7"}
-*/
+		 */
 		try (Scanner sc = new Scanner(new FileInputStream("Student.txt"))){
 			for(int i=0; i<num_of_student; i++) {
 				for(int j=0; j<4; j++) {
@@ -179,16 +162,13 @@ public class Mainform extends JFrame implements ActionListener, MouseListener{
 	}
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand();
-		if(command.equals("Login")) { // 로그인 버튼이 눌려지고 그 이후의 메인환경을 구성함
-			Mainform mainScreen = new Mainform();
-			mainScreen.setVisible(true);
-		}
-		else if(command.equals("등록")){
+
+		if(command.equals("등록")){
 			String num = Num.getText();
 			String name = Name.getText();
 			String subject = Subject.getText();
 			String grade = Grade.getText();
-			
+
 			if(num.equals("") || name.equals("") || subject.equals("") || grade.equals("")) {
 				Error error = new Error();  // 에러 창 띄우기
 				error.setVisible(true);
@@ -205,14 +185,14 @@ public class Mainform extends JFrame implements ActionListener, MouseListener{
 		}
 		else if(command.equals("수정")){
 			int row = table.getSelectedRow();
-			
+
 			model.removeRow(row);
-			
+
 			String num = Num.getText();
 			String name = Name.getText();
 			String subject = Subject.getText();
 			String grade = Grade.getText();
-			
+
 			model.addRow(new Object[] {num, name, subject, grade});
 		}
 		else if(command.equals("삭제")){
