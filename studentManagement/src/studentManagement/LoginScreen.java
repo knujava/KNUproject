@@ -1,6 +1,12 @@
 package studentManagement;
 
 import javax.swing.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,11 +17,13 @@ public class LoginScreen extends JFrame implements ActionListener, KeyListener{
 	public static final int WIDTH = 500;
 	public static final int HEIGHT = 200;
 	private JLabel stateScreen = new JLabel("학번을 입력하십시오");
-	
+	private JPasswordField PWinput;
+	private JTextField IDinput;
 	public LoginScreen() {
 		super("학적 관리 프로그램");
 		setSize(WIDTH,HEIGHT);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		
 		setLayout(new BorderLayout());
 		add(stateScreen, BorderLayout.NORTH);
@@ -29,13 +37,13 @@ public class LoginScreen extends JFrame implements ActionListener, KeyListener{
 		InputPanel.add(IDField);
 		IDField.setLayout(new FlowLayout());
 		IDField.add(new JLabel("ID"));
-		JTextField IDinput = new JTextField(10);
+		IDinput = new JTextField(10);
 		IDField.add(IDinput);
 		JPanel PWField = new JPanel();
 		InputPanel.add(PWField);
 		PWField.setLayout(new FlowLayout());
 		PWField.add(new JLabel("PW"));
-		JPasswordField PWinput = new JPasswordField(10);
+		PWinput = new JPasswordField(10);
 		PWField.add(PWinput);
 		
 		JButton LoginButton = new JButton("Login");
@@ -47,7 +55,7 @@ public class LoginScreen extends JFrame implements ActionListener, KeyListener{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == 13) {
-			
+			searchID(IDinput.getText(),String.valueOf(PWinput.getPassword()));
 		}
 		
 	}
@@ -63,11 +71,55 @@ public class LoginScreen extends JFrame implements ActionListener, KeyListener{
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		searchID(IDinput.getText(),String.valueOf(PWinput.getPassword()));
 		
 	}
 	private boolean searchID(String ID, String PW) {
-		
-		return false;
+		boolean isSuccess = false;
+		boolean IDFound = false;
+		File file = new File("LoginInfo.txt");
+		FileReader filereader;
+		filereader = null;
+		String ReadID;
+		String ReadPW;
+		try {
+			filereader = new FileReader(file);
+		} catch (FileNotFoundException e) {
+			System.out.println("LoginInfo.txt file does not exist!");
+			e.printStackTrace();
+		}
+		BufferedReader bufReader = new BufferedReader(filereader);
+		String line = "";
+		try {
+			while((line = bufReader.readLine())!=null) {
+				ReadID = line.split(" ")[0];
+				ReadPW = line.split(" ")[1];
+				boolean isProf = Boolean.parseBoolean(line.split(" ")[2]);
+				if(ReadID.equals(ID)) {
+					IDFound = true;
+					if(ReadPW.equals(PW)) {
+						isSuccess = true;
+						if(isProf) {
+							stateScreen.setText("Login Successful. hello professor");
+							
+							break;
+						}
+							else {
+							stateScreen.setText("Login Successful. hello student");
+							
+							break;
+							}
+						}
+					else {
+						stateScreen.setText("PW가 맞지 않습니다");
+					}
+				}
+			}
+			if(!isSuccess&&!IDFound)
+				stateScreen.setText("등록 되지 않은 ID 입니다");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return isSuccess;
 	}
 }
