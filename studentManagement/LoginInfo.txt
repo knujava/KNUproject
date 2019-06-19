@@ -1,3 +1,2 @@
 myID password true
 yourID password1 false
-sample new false
