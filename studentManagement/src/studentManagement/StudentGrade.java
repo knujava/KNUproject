@@ -57,6 +57,8 @@ public class StudentGrade extends JFrame implements ActionListener{
 		JScrollPane Scrollpane = new JScrollPane(table);
 		add(Scrollpane, BorderLayout.CENTER);
 		//pack();//
+		table.getTableHeader().setReorderingAllowed(false);
+		
 		
 		JPanel userPanel = new JPanel();
 		userPanel.setLayout(new GridLayout(2, 1));
