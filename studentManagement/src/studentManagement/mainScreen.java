@@ -1,47 +1,18 @@
 package studentManagement;
 
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 
 import javax.swing.*;
 
-public class mainScreen extends JFrame implements ActionListener{
+public class mainScreen extends JFrame{
 	public static void main(String[] args) {
-		mainScreen gui = new mainScreen();
+		StudentGrade gui = new StudentGrade();
 		gui.setVisible(true);
 	}
+	//main ¶ç¿ì±â
 
-	static String contents[][] = {
-			{"¹Ú", "±è"},
-			{"ÀÌ", "ÃÖ"},
-			{"Á¶", "±Ç"}
-	};
 	
-	public mainScreen() {
-		super("WELCOME! :::: student");
-		setSize(500,700);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		String header[] = {"a","b"};
-		
-		
-		JTable table = new JTable(contents, header);
-		JScrollPane Scrollpane = new JScrollPane(table);
-		add(Scrollpane);
-		pack();//
-		
-		JButton actionButton = new JButton("hid");
-		actionButton.addActionListener(this);//
-		add(actionButton);
-	}
 	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-		
-		System.exit(0);
-		
-	}
+	
 }
