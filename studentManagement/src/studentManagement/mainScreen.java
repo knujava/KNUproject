@@ -19,7 +19,7 @@ public class mainScreen extends JFrame implements ActionListener{
 	};
 	
 	public mainScreen() {
-		super("WELCOME! :::: Professor");
+		super("WELCOME! :::: student");
 		setSize(500,700);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -32,6 +32,7 @@ public class mainScreen extends JFrame implements ActionListener{
 		pack();//
 		
 		JButton actionButton = new JButton("hid");
+		actionButton.addActionListener(this);//
 		add(actionButton);
 	}
 	
@@ -39,10 +40,8 @@ public class mainScreen extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
-		String buttonString = e.getActionCommand();
 		
-		if (buttonString.equals("hid")) {
-			System.exit(0);
-		}
+		System.exit(0);
+		
 	}
 }
