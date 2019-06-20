@@ -37,8 +37,6 @@ import javax.swing.table.TableCellRenderer;
 
 public class StudentGrade extends JFrame implements ActionListener, MouseListener{
 	
-	//public static final int NUMBER_ME = 100;
-	
 
 	private JTextField num;
 	private JTextField name;
@@ -57,15 +55,12 @@ public class StudentGrade extends JFrame implements ActionListener, MouseListene
 	private String[][] contents;
 	
 	
-	//String contents[][] = new String[NUMBER_ME][4];
-	
-	
 
 	
 	public StudentGrade() {
 		super("WELCOME! :::: PROFESSOR");
 		setSize(700,900);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLayout(new BorderLayout());
 		
 		JMenu usermenu = new JMenu("메뉴");
@@ -79,7 +74,6 @@ public class StudentGrade extends JFrame implements ActionListener, MouseListene
 		setJMenuBar(bar);
 		
 		String header[] = {"학번","이름","과목명","평점"};
-		//String contents[][] = new String[100][4];
 		//전역
 		
 		//String contents[][] = {
