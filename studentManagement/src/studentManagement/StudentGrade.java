@@ -65,7 +65,7 @@ public class StudentGrade extends JFrame implements ActionListener, MouseListene
 	public StudentGrade() {
 		super("WELCOME! :::: PROFESSOR");
 		setSize(700,900);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLayout(new BorderLayout());
 		
 		JMenu usermenu = new JMenu("¸Þ´º");
