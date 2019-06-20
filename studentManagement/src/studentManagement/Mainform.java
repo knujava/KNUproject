@@ -37,7 +37,8 @@ class Error extends JFrame implements ActionListener{
 public class Mainform extends JFrame implements ActionListener, MouseListener{
 	public static final int WIDTH = 400;
 	public static final int HEIGHT = 500;
-
+	
+	private int num_of_student;
 	private JPanel up = new JPanel(); 
 	private JPanel down = new JPanel(); // up은 검색, down은 보여주기
 	private JTextField Num = new JTextField(30);
@@ -92,8 +93,11 @@ public class Mainform extends JFrame implements ActionListener, MouseListener{
 		JMenu Student = new JMenu("학생");
 		JMenu grade = new JMenu("성적");
 		JMenuItem grade_item = new JMenuItem("성적 정보");
+		JMenuItem detail = new JMenuItem("자세히 보기");
+		detail.addActionListener(this);
 		grade_item.addActionListener(this);
-
+		
+		Student.add(detail);
 		grade.add(grade_item);
 		menu.add(Student);
 		menu.add(grade);
@@ -116,7 +120,7 @@ public class Mainform extends JFrame implements ActionListener, MouseListener{
 		buttonPanel.add(change);
 		buttonPanel.add(delete);
 		down.add(buttonPanel, BorderLayout.SOUTH);
-		int num_of_student = 0;
+		num_of_student = 0;
 
 		try (Scanner sc = new Scanner(new FileInputStream("Student.txt"))){
 			while(sc.hasNextLine()) {
@@ -170,7 +174,7 @@ public class Mainform extends JFrame implements ActionListener, MouseListener{
 			String grade = Grade.getText();
 
 			if(num.equals("") || name.equals("") || subject.equals("") || grade.equals("")) {
-				Error error = new Error();  // 에러 창 띄우기
+				Error error = new Error();  // 빈칸이 있으면 에러 창 띄우기
 				error.setVisible(true);
 			}
 			else {
@@ -181,6 +185,7 @@ public class Mainform extends JFrame implements ActionListener, MouseListener{
 				catch(IOException d) {
 					d.printStackTrace();
 				}
+				num_of_student++;
 			}
 		}
 		else if(command.equals("수정")){
@@ -194,10 +199,66 @@ public class Mainform extends JFrame implements ActionListener, MouseListener{
 			String grade = Grade.getText();
 
 			model.addRow(new Object[] {num, name, subject, grade});
+			
+			String[] temp = new String[num_of_student];
+			try(Scanner sc = new Scanner(new FileInputStream("Student.txt"))) {
+				for(int i=0; i<num_of_student; i++) {
+					String line = sc.nextLine();
+					if(i != row) {
+						temp[i] = line;
+					}
+					else if(i==row){
+						// 수정한 문자열 일 경우
+						temp[i] = num+" " + name + " " + subject +" "+grade;
+					}
+				}
+			}
+			catch(IOException d) {
+				d.printStackTrace();
+			}
+			try(BufferedWriter out = new BufferedWriter(new FileWriter("Student.txt"))) {
+				for(int i=0; i<num_of_student-1; i++) {
+					out.write(temp[i]+"\r\n");
+				}
+				out.write(temp[num_of_student-1]);
+			}
+			catch(IOException d) {
+				d.printStackTrace();
+			}
 		}
 		else if(command.equals("삭제")){
 			int row = table.getSelectedRow();
 			model.removeRow(row);
+			
+			//삭제 한 것을 파일에도 반영시키기
+			String[] temp = new String[num_of_student-1];
+			int line_count = 0;
+			try(Scanner sc = new Scanner(new FileInputStream("Student.txt"))) {
+				for(int i=0; i<num_of_student; i++) {
+					String line = sc.nextLine();
+					if(i != row) {
+						temp[line_count++] = line;
+					}
+				}
+			}
+			catch(IOException d) {
+				d.printStackTrace();
+			}
+			try(BufferedWriter out = new BufferedWriter(new FileWriter("Student.txt"))) {
+				for(int i=0; i<line_count-1; i++) {
+					out.write(temp[i]+"\r\n");
+				}
+				out.write(temp[line_count-1]);
+				num_of_student--;
+			}
+			catch(IOException d) {
+				d.printStackTrace();
+			}
+		}
+		else if(command.equals("자세히 보기")) {
+			// 자세히 보는 화면 띄우기
+			StudentGrade detail_show = new StudentGrade();
+			detail_show.setVisible();
 		}
 	}
 
