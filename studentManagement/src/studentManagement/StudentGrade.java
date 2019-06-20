@@ -132,6 +132,7 @@ public class StudentGrade extends JFrame implements ActionListener, MouseListene
 		//pack();//
 		table.getTableHeader().setReorderingAllowed(false);
 		
+			
 		
 		JPanel userPanel = new JPanel();
 		userPanel.setLayout(new GridLayout(2, 1));
@@ -204,6 +205,7 @@ public class StudentGrade extends JFrame implements ActionListener, MouseListene
 		
 		table.addMouseListener(this);
 		
+
 		
 		
 	}
@@ -215,8 +217,11 @@ public class StudentGrade extends JFrame implements ActionListener, MouseListene
 		String buttonString = e.getActionCommand();
 		
 		if (buttonString.contentEquals(" ")) {
+			TableCellRenderer tableCellRenderer = table.getCellRenderer(0 , 0);
+			Component c = table.prepareRenderer(tableCellRenderer, 0, 0);
+			c.setBackground(Color.CYAN);
 			
-			
+			//table.getComponentAt(3, 3).setBackground(Color.CYAN);
 //			String numi = num.getText();
 //			String namei = name.getText();
 //			String subjecti = subj.getText();
