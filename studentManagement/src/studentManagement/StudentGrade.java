@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -33,7 +34,8 @@ public class StudentGrade extends JFrame implements ActionListener{
 	private JTextField grade;
 	private JTextField subj;
 	
-	
+	private int rowcnt = 0;
+	private int colcnt = 0;
 	
 	
 	public StudentGrade() {
@@ -52,6 +54,17 @@ public class StudentGrade extends JFrame implements ActionListener{
 		bar.add(usermenu);
 		setJMenuBar(bar);
 		
+		String header[] = {"학번","이름","과목명","평점"};
+		String contents[][] = new String[100][4];
+		
+		//String contents[][] = {
+		//		{"2016000000", "김철수", "심리학", "4.3"},
+		//		{"2015000000", "조짱구", "자바", "0.7"},
+		//		{"2017000000", "최유리", "자료구조", "3.3"},
+		//		{"2018000000", "박맹구", "팔공산", "1.7"},
+		//		{"2019000000", "이훈", "초급교양영어", "2.7"}
+		//};
+		tablePanel = new JPanel();//??
 		
 		Scanner inputStream = null;
 		try {
@@ -62,22 +75,24 @@ public class StudentGrade extends JFrame implements ActionListener{
 			System.out.println("no file");
 			System.exit(0);
 		}
-		String tmp = inputStream.nextLine();
 		
-		String header[] = {"학번","이름","과목명","평점"};
-		//String contents[][] = new String[100][4];
-		String contents[][] = {
-				{"2016000000", "김철수", "심리학", "4.3"},
-				{"2015000000", "조짱구", "자바", "0.7"},
-				{"2017000000", "최유리", "자료구조", "3.3"},
-				{"2018000000", "박맹구", "팔공산", "1.7"},
-				{"2019000000", "이훈", "초급교양영어", "2.7"}
-		};
+		while(inputStream.hasNextLine())
+		{
+			String tmp = inputStream.nextLine();
+			StringTokenizer st = new StringTokenizer(tmp);
+			
+			//contents[rowcnt][colcnt] = st;
 		
-
+			while (st.hasMoreTokens()) {
+			contents[rowcnt][colcnt] = st.nextToken();
+			colcnt++;
+			}
+			
+			rowcnt++;
+			colcnt = 0;
+		}
 		
-		
-		tablePanel = new JPanel();
+		inputStream.close();
 		
 		DefaultTableModel model = new DefaultTableModel(contents, header) {
 			public boolean isCellEditable(int i, int c) {
