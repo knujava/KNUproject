@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.FileNotFoundException;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 
@@ -15,6 +14,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SignUpScreen extends JFrame implements ActionListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static final int WIDTH = 500;
 	public static final int HEIGHT = 200;
 	private JLabel stateScreen = new JLabel("등록할 ID 및 PW 입력");

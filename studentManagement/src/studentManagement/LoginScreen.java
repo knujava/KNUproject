@@ -1,5 +1,6 @@
 package studentManagement;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,17 +12,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.*;
-import java.security.Key;
- 
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
 
 
 
 public class LoginScreen extends JFrame implements ActionListener, KeyListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static final int WIDTH = 500;
-	public static final int HEIGHT = 200;
+	public static final int HEIGHT = 300;
 	private JLabel stateScreen = new JLabel("학번을 입력하십시오");
 	private JPasswordField PWinput;
 	private JTextField IDinput;
@@ -31,13 +31,26 @@ public class LoginScreen extends JFrame implements ActionListener, KeyListener{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
-		setLayout(new BorderLayout());
-		add(stateScreen, BorderLayout.NORTH);
+		File sourceimage = new File("logo.png");
+		Image img = null;
+		try {
+			img = ImageIO.read(sourceimage);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		JLabel picturePanel = new JLabel(new ImageIcon(img));
+		JPanel loginPanel = new JPanel();
+		loginPanel.setLayout(new BorderLayout());
+		setLayout(new GridLayout(2,1));
+		add(picturePanel);
+		add(loginPanel);
+		loginPanel.add(stateScreen, BorderLayout.NORTH);
 		stateScreen.setHorizontalAlignment(SwingConstants.CENTER);//글자 가운데 정렬
 		stateScreen.setVerticalAlignment(SwingConstants.CENTER);
 		
 		JPanel InputPanel = new JPanel();
-		add(InputPanel,BorderLayout.CENTER);
+		loginPanel.add(InputPanel,BorderLayout.CENTER);
 		InputPanel.setLayout(new FlowLayout());
 		JPanel IDField = new JPanel();
 		InputPanel.add(IDField);
@@ -58,7 +71,7 @@ public class LoginScreen extends JFrame implements ActionListener, KeyListener{
 		
 		JButton signup = new JButton("회원 가입");
 		signup.addActionListener(this);
-		add(signup,BorderLayout.SOUTH);
+		loginPanel.add(signup,BorderLayout.SOUTH);
 	}
 	@Override
 	public void keyPressed(KeyEvent e) {
