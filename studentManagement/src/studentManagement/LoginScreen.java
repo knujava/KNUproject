@@ -108,8 +108,6 @@ public class LoginScreen extends JFrame implements ActionListener, KeyListener{
 			while((line = bufReader.readLine())!=null) {
 				ReadID = encrypt(line.split(" ")[0],-5).toString();
 				ReadPW = encrypt(line.split(" ")[1],-5).toString();
-				System.out.println("readID : "+ReadID);
-				System.out.println("ReadPW : "+ReadPW);
 				boolean isProf = Boolean.parseBoolean(line.split(" ")[2]);
 				if(ReadID.equals(ID)) {
 					IDFound = true;
