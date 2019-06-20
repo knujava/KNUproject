@@ -11,6 +11,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.*;
+import java.security.Key;
+ 
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
+
+
 
 public class LoginScreen extends JFrame implements ActionListener, KeyListener{
 	public static final int WIDTH = 500;
@@ -18,7 +25,7 @@ public class LoginScreen extends JFrame implements ActionListener, KeyListener{
 	private JLabel stateScreen = new JLabel("학번을 입력하십시오");
 	private JPasswordField PWinput;
 	private JTextField IDinput;
-	public LoginScreen() {
+	public LoginScreen() { 
 		super("학적 관리 프로그램");
 		setSize(WIDTH,HEIGHT);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -99,8 +106,10 @@ public class LoginScreen extends JFrame implements ActionListener, KeyListener{
 		String line = "";
 		try {
 			while((line = bufReader.readLine())!=null) {
-				ReadID = line.split(" ")[0];
-				ReadPW = line.split(" ")[1];
+				ReadID = encrypt(line.split(" ")[0],-5).toString();
+				ReadPW = encrypt(line.split(" ")[1],-5).toString();
+				System.out.println("readID : "+ReadID);
+				System.out.println("ReadPW : "+ReadPW);
 				boolean isProf = Boolean.parseBoolean(line.split(" ")[2]);
 				if(ReadID.equals(ID)) {
 					IDFound = true;
@@ -136,4 +145,15 @@ public class LoginScreen extends JFrame implements ActionListener, KeyListener{
 		}
 		return isSuccess;
 	}
+    public static StringBuffer encrypt(String text, int s) 
+    { 
+        StringBuffer result= new StringBuffer(); 
+  
+        for (int i=0; i<text.length(); i++) 
+        {  
+            char ch = (char)(((int)text.charAt(i) + s)); 
+                result.append(ch);  
+        } 
+        return result; 
+    } 
 }

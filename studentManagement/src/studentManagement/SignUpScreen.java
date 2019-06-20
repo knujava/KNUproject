@@ -88,7 +88,7 @@ public class SignUpScreen extends JFrame implements ActionListener{
 					BufferedWriter bufferedWriter = null;
 					try {
 						bufferedWriter = new BufferedWriter(new FileWriter(file,true));
-						bufferedWriter.append("\r\n"+IDinput.getText()+" "+String.valueOf(second.getPassword())+" false");
+						bufferedWriter.append("\r\n"+LoginScreen.encrypt(IDinput.getText(), 5)+" "+LoginScreen.encrypt(String.valueOf(second.getPassword()), 5)+" false");
 						bufferedWriter.close();
 						stateScreen.setText("성공적으로 등록되었습니다");
 					} catch (IOException e) {
@@ -109,7 +109,7 @@ public class SignUpScreen extends JFrame implements ActionListener{
 		String line,ReadID;
 		try {
 			while((line = bufReader.readLine())!=null) {
-				ReadID = line.split(" ")[0];
+				ReadID = LoginScreen.encrypt(line.split(" ")[0],-5).toString();
 				if(ReadID.equals(ID)) {
 					isValid = false;
 					break;
