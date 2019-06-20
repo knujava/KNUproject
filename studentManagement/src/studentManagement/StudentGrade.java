@@ -37,14 +37,14 @@ import javax.swing.table.TableCellRenderer;
 
 public class StudentGrade extends JFrame implements ActionListener, MouseListener{
 	
-	public static final int NUMBER_ME = 100;
+	//public static final int NUMBER_ME = 100;
 	
-	//private JPanel tablePanel;
+
 	private JTextField num;
 	private JTextField name;
 	private JTextField grade;
 	private JTextField subj;
-	//private JComboBox jcb;
+
 	
 	private int rowcnt = 0;
 	private int colcnt = 0;
@@ -52,11 +52,15 @@ public class StudentGrade extends JFrame implements ActionListener, MouseListene
 	private JTable table = new JTable();
 	private DefaultTableModel model;
 	
-	//private String[] cbd = {"1", "2", "3"};
+	private int counterarrsize = 0;
 	
-	String contents[][] = new String[NUMBER_ME][4];
+	private String[][] contents;
 	
-	//private boolean colorCell[] = new boolean[NUMBER_ME];
+	
+	//String contents[][] = new String[NUMBER_ME][4];
+	
+	
+
 	
 	public StudentGrade() {
 		super("WELCOME! :::: PROFESSOR");
@@ -85,12 +89,22 @@ public class StudentGrade extends JFrame implements ActionListener, MouseListene
 		//		{"2018000000", "박맹구", "팔공산", "1.7"},
 		//		{"2019000000", "이훈", "초급교양영어", "2.7"}
 		//};
-		//tablePanel = new JPanel();//??
+
 		
-		//jcb = new JComboBox(cbd);
-		//jcb.addActionListener(new MyActionListener());
+	
 		
+		try (Scanner sc = new Scanner(new FileInputStream("Student.txt"))){
+			while(sc.hasNextLine()) {
+				sc.nextLine();
+				counterarrsize++;
+			}
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+		//알아서 닫힘
 		
+		contents = new String[counterarrsize][4];
 		
 		Scanner inputStream = null;
 		try {
@@ -107,7 +121,7 @@ public class StudentGrade extends JFrame implements ActionListener, MouseListene
 			String tmp = inputStream.nextLine();
 			StringTokenizer st = new StringTokenizer(tmp);
 			
-			//contents[rowcnt][colcnt] = st;
+
 		
 			while (st.hasMoreTokens()) {
 			contents[rowcnt][colcnt] = st.nextToken();
@@ -167,10 +181,7 @@ public class StudentGrade extends JFrame implements ActionListener, MouseListene
 		grade = new JTextField(9);
 		textPanel.add(grade);
 		
-		//JLabel blank = new JLabel(" ");
-		//textPanel.add(blank);
-		
-		//JButton searchButton = new JButton(new ImageIcon("mag.png"));
+	
 		JButton searchButton = new JButton(" ");
 		ImageIcon magIcon = new ImageIcon("mag.png");
 		searchButton.setIcon(magIcon);
@@ -179,27 +190,9 @@ public class StudentGrade extends JFrame implements ActionListener, MouseListene
 		textPanel.add(searchButton);
 		
 		userPanel.add(textPanel);
-		//
-		
-		//
+
 		JPanel buttonPanel = new JPanel();
-//		buttonPanel.setLayout(new GridLayout(1, 3));
-//		
-//		JButton actionButton_add = new JButton("추가");
-//		actionButton_add.addActionListener(this);//
-//		buttonPanel.add(actionButton_add);
-//		
-//		JButton actionButton_del = new JButton("제거");
-//		actionButton_del.addActionListener(this);//
-//		buttonPanel.add(actionButton_del);
-//
-		
-//		JButton actionButton_re = new JButton("창닫기");
-//		actionButton_re.addActionListener(this);//
-//		buttonPanel.add(actionButton_re);
-//		
-//		userPanel.add(buttonPanel);
-		//
+
 		
 		add(userPanel, BorderLayout.SOUTH);
 		
@@ -217,149 +210,39 @@ public class StudentGrade extends JFrame implements ActionListener, MouseListene
 		String buttonString = e.getActionCommand();
 		
 		if (buttonString.contentEquals(" ")) {
-			//TableCellRenderer tableCellRenderer = table.getCellRenderer(0 , 0);
-			//Component c = table.prepareRenderer(tableCellRenderer, 0, 0);
-			//c.setBackground(Color.CYAN);
+			String numi = num.getText();
+			String namei = name.getText();
+			String subjecti = subj.getText();
+			String gradei = grade.getText();
 			
-			//table.getComponentAt(3, 3).setBackground(Color.CYAN);
-//			String numi = num.getText();
-//			String namei = name.getText();
-//			String subjecti = subj.getText();
-//			String gradei = grade.getText();
-//			
-//			MyRenderer myRenderer = new MyRenderer();
-//			
-//			
-//			for (int i = 0; i < rowcnt; i++) {
-//			if(numi.equals(contents[i][0]) 
-//					|| namei.equals(contents[i][1])
-//					||subjecti.equals(contents[i][2]) 
-//					|| gradei.equals(contents[i][3])) {
-//				//#fcf695
-//				
-//				table.setDefaultRenderer(Object.class, myRenderer);
-//
-//				}
-//				
-//			}
+			String header[] = {"학번","이름","과목명","평점"};
 			
+			int cnt = 0;
 			
-			//setRowColor();
-			
+			for(int i = 0; i < counterarrsize; i++) {
+				if(numi.equals(contents[i][0]) 
+						|| namei.equals(contents[i][1])
+						||subjecti.equals(contents[i][2]) 
+						|| gradei.equals(contents[i][3])) {
+					
+					cnt++;
+					
+					model.addRow(new Object[] {numi, namei, subjecti, gradei});
+				}
+			}
+
+		
+
+		
+	
 		}
-//			String numi = num.getText();
-//			String namei = name.getText();
-//			String subjecti = subj.getText();
-//			String gradei = grade.getText();
-			
-//			for (int i = 0; i < rowcnt; i++) {
-//				if(numi.equals(contents[i][0]) 
-//						|| namei.equals(contents[i][1])
-//						||subjecti.equals(contents[i][2]) 
-//						|| gradei.equals(contents[i][3])) {
-//					//#fcf695
-//					
-//					
-//					System.out.println("ok");
-//					
-//					setRowColor(i);
-//					
-////					JTable jTable = new JTable(model) {
-////						public Component preapareRenderer(TableCellRenderer render, int row, int column) {
-////							
-////						}
-////					}
-//					
-//				}
-//				else {
-//					//white
-//					
-//					System.out.println("no");
-//					
-//					resetRowColor(i);
-//				}
-//			}
+
 		else if (buttonString.contentEquals("창닫기")) {
 			
 			setVisible(false);
 		}
-		
-//		else if (buttonString.contentEquals("추가")) {
-//			String numi = num.getText();
-//			String namei = name.getText();
-//			String subjecti = subj.getText();
-//			String gradei = grade.getText();
-//			
-//			if (!(numi.equals(""))||!(namei.equals(""))||!(subjecti.equals(""))||!(gradei.contentEquals("")))
-//			{
-//				model.addRow(new Object[] {numi, namei, subjecti, gradei});
-//				//arr size fit
-//				
-//				//contents[rowcnt][0] = numi;
-//				//contents[rowcnt][1] = namei;
-//				//contents[rowcnt][2] = subjecti;
-//				//contents[rowcnt][3] = gradei;
-//				//rowcnt++;
-//				
-//				try(BufferedWriter out = new BufferedWriter(new FileWriter("stugrade.txt",true))){
-//					out.append("\r\n"+numi+" "+namei+" "+subjecti+" "+ gradei);
-//				}
-//				catch(IOException d) {
-//					System.out.println("no file");
-//					System.exit(0);
-//				}
-//			}
-//		}
-//		else if (buttonString.contentEquals("제거")) {
-//			
-//			
-//		}
-		
-	}
+	}		
 
-//	private void setRowColor() {
-//
-//		
-//		String numi = num.getText();
-//		String namei = name.getText();
-//		String subjecti = subj.getText();
-//		String gradei = grade.getText();
-//		
-//		for (int i = 0; i < rowcnt; i++) {
-//			if(numi.equals(contents[i][0]) 
-//					|| namei.equals(contents[i][1])
-//					||subjecti.equals(contents[i][2]) 
-//					|| gradei.equals(contents[i][3])) {
-//				
-//				for (int j = 0; j < 3; j++) {
-//					TableCellRenderer tableCellRenderer = table.getCellRenderer(i, j);
-//					Component c = table.prepareRenderer(tableCellRenderer, i, j);
-//					
-//					Color colory = new Color(0xFCF695);
-//					c.setBackground(colory);
-//				}
-//				
-//			}
-//			else {
-//				for (int j = 0; j < 3; j++) {
-//					TableCellRenderer tableCellRenderer = table.getCellRenderer(i, j);
-//					Component c = table.prepareRenderer(tableCellRenderer, i, j);
-//					
-//					c.setBackground(Color.WHITE);
-//				}
-//				
-//			}
-//		
-//		}
-//	}
-//	private void resetRowColor(int row) {
-//		for (int i = 0; i < 3; i++) {
-//			TableCellRenderer tableCellRenderer = table.getCellRenderer(row, i);
-//			Component c = table.prepareRenderer(tableCellRenderer, row, i);
-//			
-//			c.setBackground(Color.WHITE);
-//		}
-//	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
