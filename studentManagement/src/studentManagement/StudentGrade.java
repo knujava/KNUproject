@@ -2,6 +2,7 @@ package studentManagement;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -21,6 +22,7 @@ import java.util.StringTokenizer;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -31,22 +33,26 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 public class StudentGrade extends JFrame implements ActionListener, MouseListener{
 	
 	public static final int NUMBER_ME = 100;
 	
-	private JPanel tablePanel;
+	//private JPanel tablePanel;
 	private JTextField num;
 	private JTextField name;
 	private JTextField grade;
 	private JTextField subj;
+	//private JComboBox jcb;
 	
 	private int rowcnt = 0;
 	private int colcnt = 0;
 	
 	private JTable table = new JTable();
 	private DefaultTableModel model;
+	
+	//private String[] cbd = {"1", "2", "3"};
 	
 	String contents[][] = new String[NUMBER_ME][4];
 	
@@ -79,7 +85,12 @@ public class StudentGrade extends JFrame implements ActionListener, MouseListene
 		//		{"2018000000", "박맹구", "팔공산", "1.7"},
 		//		{"2019000000", "이훈", "초급교양영어", "2.7"}
 		//};
-		tablePanel = new JPanel();//??
+		//tablePanel = new JPanel();//??
+		
+		//jcb = new JComboBox(cbd);
+		//jcb.addActionListener(new MyActionListener());
+		
+		
 		
 		Scanner inputStream = null;
 		try {
@@ -192,6 +203,9 @@ public class StudentGrade extends JFrame implements ActionListener, MouseListene
 		add(userPanel, BorderLayout.SOUTH);
 		
 		table.addMouseListener(this);
+		
+		
+		
 	}
 	//화면구성하기
 	
@@ -201,28 +215,65 @@ public class StudentGrade extends JFrame implements ActionListener, MouseListene
 		String buttonString = e.getActionCommand();
 		
 		if (buttonString.contentEquals(" ")) {
-			String numi = num.getText();
-			String namei = name.getText();
-			String subjecti = subj.getText();
-			String gradei = grade.getText();
 			
-			for (int i = 0; i < rowcnt; i++) {
-				if(numi.equals(contents[i][0]) 
-						|| namei.equals(contents[i][1])
-						||subjecti.equals(contents[i][2]) 
-						|| gradei.equals(contents[i][3])) {
-					//#fcf695
-					
-					System.out.println("ok");
-					
-				}
-				else {
-					//white
-					
-					System.out.println("no");
-				}
-			}
+			
+//			String numi = num.getText();
+//			String namei = name.getText();
+//			String subjecti = subj.getText();
+//			String gradei = grade.getText();
+//			
+//			MyRenderer myRenderer = new MyRenderer();
+//			
+//			
+//			for (int i = 0; i < rowcnt; i++) {
+//			if(numi.equals(contents[i][0]) 
+//					|| namei.equals(contents[i][1])
+//					||subjecti.equals(contents[i][2]) 
+//					|| gradei.equals(contents[i][3])) {
+//				//#fcf695
+//				
+//				table.setDefaultRenderer(Object.class, myRenderer);
+//
+//				}
+//				
+//			}
+			
+			
+			//setRowColor();
+			
 		}
+//			String numi = num.getText();
+//			String namei = name.getText();
+//			String subjecti = subj.getText();
+//			String gradei = grade.getText();
+			
+//			for (int i = 0; i < rowcnt; i++) {
+//				if(numi.equals(contents[i][0]) 
+//						|| namei.equals(contents[i][1])
+//						||subjecti.equals(contents[i][2]) 
+//						|| gradei.equals(contents[i][3])) {
+//					//#fcf695
+//					
+//					
+//					System.out.println("ok");
+//					
+//					setRowColor(i);
+//					
+////					JTable jTable = new JTable(model) {
+////						public Component preapareRenderer(TableCellRenderer render, int row, int column) {
+////							
+////						}
+////					}
+//					
+//				}
+//				else {
+//					//white
+//					
+//					System.out.println("no");
+//					
+//					resetRowColor(i);
+//				}
+//			}
 		else if (buttonString.contentEquals("창닫기")) {
 			
 			setVisible(false);
@@ -261,6 +312,50 @@ public class StudentGrade extends JFrame implements ActionListener, MouseListene
 		
 	}
 
+//	private void setRowColor() {
+//
+//		
+//		String numi = num.getText();
+//		String namei = name.getText();
+//		String subjecti = subj.getText();
+//		String gradei = grade.getText();
+//		
+//		for (int i = 0; i < rowcnt; i++) {
+//			if(numi.equals(contents[i][0]) 
+//					|| namei.equals(contents[i][1])
+//					||subjecti.equals(contents[i][2]) 
+//					|| gradei.equals(contents[i][3])) {
+//				
+//				for (int j = 0; j < 3; j++) {
+//					TableCellRenderer tableCellRenderer = table.getCellRenderer(i, j);
+//					Component c = table.prepareRenderer(tableCellRenderer, i, j);
+//					
+//					Color colory = new Color(0xFCF695);
+//					c.setBackground(colory);
+//				}
+//				
+//			}
+//			else {
+//				for (int j = 0; j < 3; j++) {
+//					TableCellRenderer tableCellRenderer = table.getCellRenderer(i, j);
+//					Component c = table.prepareRenderer(tableCellRenderer, i, j);
+//					
+//					c.setBackground(Color.WHITE);
+//				}
+//				
+//			}
+//		
+//		}
+//	}
+//	private void resetRowColor(int row) {
+//		for (int i = 0; i < 3; i++) {
+//			TableCellRenderer tableCellRenderer = table.getCellRenderer(row, i);
+//			Component c = table.prepareRenderer(tableCellRenderer, row, i);
+//			
+//			c.setBackground(Color.WHITE);
+//		}
+//	}
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -295,3 +390,6 @@ public class StudentGrade extends JFrame implements ActionListener, MouseListene
 		
 	}
 }
+
+
+
