@@ -1,0 +1,69 @@
+package studentManagement;
+
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
+public class AfterLogin extends JFrame implements ActionListener{
+	public static final int SCREEN_WIDTH = 500;
+	public static final int SCREEN_HEIGHT = 500;
+	
+	public void actionPerformed(ActionEvent e) {
+		
+	}
+	private BorderLayout bl = new BorderLayout();
+	private JFrame AfterLoginframe = new JFrame();
+	
+	private JTable table;
+	
+	AfterLogin() throws IOException{
+		File file = new File("src/score.txt");
+		FileReader filereader = new FileReader(file);
+		
+		BufferedReader bf = new BufferedReader(new InputStreamReader("score.txt"));
+		String s = bf.readLine();
+		String header[] = {"과목","학점"};
+		String contents[][] = {
+				{"자료구조","3.7"},
+				{"자바","3.7"},
+				{"오토마타","3.7"},
+				{"논리회로","3.7"},
+				{"공학수학","3.3"},
+				{"컴퓨터윤리","3.0"}
+		};
+		
+		JTable table = new JTable(contents,header);
+		JScrollPane scrollpane = new JScrollPane(table);
+
+		AfterLoginframe.add(scrollpane);
+		AfterLoginframe.setTitle("정보 조회");
+		AfterLoginframe.setSize(SCREEN_WIDTH,SCREEN_HEIGHT);
+		AfterLoginframe.setVisible(true);
+		AfterLoginframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JMenu scoreMenu = new JMenu("Score");
+		JMenu studentMenu = new JMenu("Student");
+		JMenuItem search = new JMenuItem("search");
+		JMenuBar bar = new JMenuBar();
+		
+		scoreMenu.add(search);
+		
+		bar.add(scoreMenu);
+		bar.add(studentMenu);
+		add(bar,bl.NORTH);
+		
+		AfterLoginframe.setJMenuBar(bar);
+	}
+}

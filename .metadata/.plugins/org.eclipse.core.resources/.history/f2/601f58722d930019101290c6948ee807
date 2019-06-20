@@ -1,0 +1,108 @@
+package studentManagement;
+
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+public class AfterLogin extends JFrame implements ActionListener{
+	public static final int SCREEN_WIDTH = 500;
+	public static final int SCREEN_HEIGHT = 500;
+	
+	public void actionPerformed(ActionEvent e) {
+		
+	}
+	private BorderLayout bl = new BorderLayout();
+	private JFrame AfterLoginframe = new JFrame();
+	private String SubjectName;
+	private String SubjectScore;
+	private String name;
+	private JTable table;
+	private String word;
+	private JScrollPane scrollpane;
+	
+	AfterLogin() throws IOException{
+		String header[] = {"과목","학점"};
+		String contents[][] = {
+				{"자료구조","3.8"},
+				{"자바","3.5"}
+		};
+		DefaultTableModel defaultTableModel = new DefaultTableModel(contents,header);
+		
+		try {
+			File file = new File("src/score.txt");
+			FileReader filereader = new FileReader(file);
+			BufferedReader bf = new BufferedReader(filereader);
+			String line = "";
+			table = new JTable(defaultTableModel);
+			scrollpane = new JScrollPane(table);
+			
+			int i,j;
+			int rowcnt=0;
+			StringTokenizer st;
+			int linecount=0;
+			while((line = bf.readLine())!= null) {
+				linecount++;
+			}
+			try {
+				Scanner sc = new Scanner(new FileInputStream(""))
+			}
+			line = bf.readLine();
+			while(line != null) {
+				st = new StringTokenizer(line," ");
+				String num = st.nextToken();
+				
+				if(num.equals("2016555555")==true) {
+					name = st.nextToken();
+					SubjectName = st.nextToken();
+					System.out.println(SubjectName);
+					SubjectScore = st.nextToken();
+					System.out.println(SubjectScore);
+					table.setValueAt(SubjectName, rowcnt, 0);
+					table.setValueAt(SubjectScore,rowcnt,1);
+					
+				}
+				
+				line = bf.readLine();
+			}
+			AfterLoginframe.add(scrollpane);
+			bf.close();
+		}
+		catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		AfterLoginframe.add(scrollpane);
+		AfterLoginframe.setTitle("정보 조회");
+		AfterLoginframe.setSize(SCREEN_WIDTH,SCREEN_HEIGHT);
+		AfterLoginframe.setVisible(true);
+		AfterLoginframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JMenu scoreMenu = new JMenu("Score");
+		JMenu studentMenu = new JMenu("Student");
+		JMenuItem search = new JMenuItem("search");
+		JMenuBar bar = new JMenuBar();
+		
+		scoreMenu.add(search);
+		
+		bar.add(scoreMenu);
+		bar.add(studentMenu);
+		add(bar,bl.NORTH);
+		
+		AfterLoginframe.setJMenuBar(bar);
+	}
+}

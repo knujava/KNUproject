@@ -1,0 +1,66 @@
+package studentManagement;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+class loginButtonListener implements ActionListener{
+	public void actionPerformed(ActionEvent e) {
+		AfterLogin al = new AfterLogin();
+	}
+}
+
+public class main extends JFrame{
+	public static final int SCREEN_WIDTH = 400;
+	public static final int SCREEN_HEIGHT = 400;
+	
+	private BorderLayout bl = new BorderLayout();
+	FlowLayout fl = new FlowLayout();
+	
+	JButton loginbt = new JButton("Login");
+	JLabel Titlelb = new JLabel("Student Managament Program");
+	JLabel Idlb = new JLabel("ID : ");
+	JLabel Pwlb = new JLabel("PW : ");
+	JPanel panel = new JPanel();
+	JFrame frame = new JFrame();
+	JMenuBar bar = new JMenuBar();
+	JMenu menu =new JMenu("Menu");
+	JMenuItem item =new JMenuItem("Item");
+	JTextField IdText = new JTextField(10);
+	JTextField PwText = new JTextField(10);
+	loginButtonListener buttonLogin = new loginButtonListener();
+	main() {
+		
+		frame.setSize(SCREEN_WIDTH,SCREEN_HEIGHT);
+		frame.setVisible(true);
+		frame.setTitle("로그인 화면");
+		frame.setLayout(bl);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		loginbt.addActionListener(buttonLogin);
+		frame.add(loginbt,bl.SOUTH);
+		frame.add(panel,bl.CENTER);
+		frame.add(Titlelb,bl.NORTH);
+		
+		panel.setLayout(fl);
+		panel.add(Idlb);
+		panel.add(IdText);
+		panel.add(Pwlb);
+		panel.add(PwText);
+		
+		frame.setJMenuBar(bar);
+		bar.add(menu);
+		menu.add(item);
+	}
+	public static void main(String[] args) {
+		main m = new main();
+	}
+}
