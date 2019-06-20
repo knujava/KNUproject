@@ -5,9 +5,14 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -25,7 +30,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-public class StudentGrade extends JFrame implements ActionListener{
+public class StudentGrade extends JFrame implements ActionListener, MouseListener{
 	
 	
 	private JPanel tablePanel;
@@ -37,6 +42,10 @@ public class StudentGrade extends JFrame implements ActionListener{
 	private int rowcnt = 0;
 	private int colcnt = 0;
 	
+	private JTable table = new JTable();
+	private DefaultTableModel model;
+	
+	String contents[][] = new String[100][4];
 	
 	public StudentGrade() {
 		super("WELCOME! :::: PROFESSOR");
@@ -55,12 +64,13 @@ public class StudentGrade extends JFrame implements ActionListener{
 		setJMenuBar(bar);
 		
 		String header[] = {"학번","이름","과목명","평점"};
-		String contents[][] = new String[100][4];
+		//String contents[][] = new String[100][4];
+		//전역
 		
 		//String contents[][] = {
 		//		{"2016000000", "김철수", "심리학", "4.3"},
-		//		{"2015000000", "조짱구", "자바", "0.7"},
-		//		{"2017000000", "최유리", "자료구조", "3.3"},
+		//		{"2015000000", "조짱구", "최고과목자바", "0.7"},
+		//		{"2017000000", "최유리", "테니스", "3.3"},
 		//		{"2018000000", "박맹구", "팔공산", "1.7"},
 		//		{"2019000000", "이훈", "초급교양영어", "2.7"}
 		//};
@@ -94,13 +104,13 @@ public class StudentGrade extends JFrame implements ActionListener{
 		
 		inputStream.close();
 		
-		DefaultTableModel model = new DefaultTableModel(contents, header) {
+		model = new DefaultTableModel(contents, header) {
 			public boolean isCellEditable(int i, int c) {
 				return false;
 			}
 		};
 		
-		JTable table = new JTable(model);
+		table = new JTable(model);
 		JScrollPane Scrollpane = new JScrollPane(table);
 		add(Scrollpane, BorderLayout.CENTER);
 		//pack();//
@@ -118,14 +128,14 @@ public class StudentGrade extends JFrame implements ActionListener{
 		textPanel.add(numps);
 		
 		num = new JTextField(7);
-		num.setEditable(false);
+		//num.setEditable(false);
 		textPanel.add(num);
 		
 		JLabel nameps = new JLabel("이름:");
 		textPanel.add(nameps);
 		
 		name = new JTextField(7);
-		name.setEditable(false);
+		//name.setEditable(false);
 		textPanel.add(name);
 		
 		JLabel subjps = new JLabel("과목:");
@@ -155,7 +165,7 @@ public class StudentGrade extends JFrame implements ActionListener{
 		actionButton_del.addActionListener(this);//
 		buttonPanel.add(actionButton_del);
 		
-		JButton actionButton_re = new JButton("변경사항저장");
+		JButton actionButton_re = new JButton("저장 및 종료");
 		actionButton_re.addActionListener(this);//
 		buttonPanel.add(actionButton_re);
 		
@@ -163,6 +173,8 @@ public class StudentGrade extends JFrame implements ActionListener{
 		//
 		
 		add(userPanel, BorderLayout.SOUTH);
+		
+		table.addMouseListener(this);
 	}
 	//화면구성하기
 	
@@ -171,18 +183,74 @@ public class StudentGrade extends JFrame implements ActionListener{
 		// TODO Auto-generated method stub
 		String buttonString = e.getActionCommand();
 		
-		if (buttonString.contentEquals("변경사항저장")) {
+		if (buttonString.contentEquals("저장 및 종료")) {
 			
 			System.exit(0);
 		}
 		else if (buttonString.contentEquals("추가")) {
+			String numi = num.getText();
+			String namei = name.getText();
+			String subjecti = subj.getText();
+			String gradei = grade.getText();
 			
-			
+			if (!(numi.equals(""))||!(namei.equals(""))||!(subjecti.equals(""))||!(gradei.contentEquals("")))
+			{
+				model.addRow(new Object[] {numi, namei, subjecti, gradei});
+				//arr size fit
+				
+				//contents[rowcnt][0] = numi;
+				//contents[rowcnt][1] = namei;
+				//contents[rowcnt][2] = subjecti;
+				//contents[rowcnt][3] = gradei;
+				//rowcnt++;
+				
+				try(BufferedWriter out = new BufferedWriter(new FileWriter("stugrade.txt",true))){
+					out.append("\r\n"+numi+" "+namei+" "+subjecti+" "+ gradei);
+				}
+				catch(IOException d) {
+					System.out.println("no file");
+					System.exit(0);
+				}
+			}
 		}
 		else if (buttonString.contentEquals("제거")) {
 			
 			
 		}
+		
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		int row = table.getSelectedRow();
+		num.setText((String)table.getValueAt(row,0));
+		name.setText((String)table.getValueAt(row, 1));
+		subj.setText((String)table.getValueAt(row, 2));
+		grade.setText((String)table.getValueAt(row, 3));
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 }
