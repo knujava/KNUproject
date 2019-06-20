@@ -182,16 +182,11 @@ public class StudentGrade extends JFrame implements ActionListener, MouseListene
 		textPanel.add(grade);
 		
 	
-		JButton searchButton = new JButton(" ");
-		ImageIcon magIcon = new ImageIcon("mag.png");
-		searchButton.setIcon(magIcon);
-		searchButton.addActionListener(this);
-		searchButton.setBackground(Color.WHITE);
-		textPanel.add(searchButton);
+		
 		
 		userPanel.add(textPanel);
 
-		JPanel buttonPanel = new JPanel();
+
 
 		
 		add(userPanel, BorderLayout.SOUTH);
@@ -209,35 +204,8 @@ public class StudentGrade extends JFrame implements ActionListener, MouseListene
 		// TODO Auto-generated method stub
 		String buttonString = e.getActionCommand();
 		
-		if (buttonString.contentEquals(" ")) {
-			String numi = num.getText();
-			String namei = name.getText();
-			String subjecti = subj.getText();
-			String gradei = grade.getText();
-			
-			String header[] = {"학번","이름","과목명","평점"};
-			
-			int cnt = 0;
-			
-			for(int i = 0; i < counterarrsize; i++) {
-				if(numi.equals(contents[i][0]) 
-						|| namei.equals(contents[i][1])
-						||subjecti.equals(contents[i][2]) 
-						|| gradei.equals(contents[i][3])) {
-					
-					cnt++;
-					
-					model.addRow(new Object[] {numi, namei, subjecti, gradei});
-				}
-			}
-
 		
-
-		
-	
-		}
-
-		else if (buttonString.contentEquals("창닫기")) {
+		if (buttonString.contentEquals("창닫기")) {
 			
 			setVisible(false);
 		}

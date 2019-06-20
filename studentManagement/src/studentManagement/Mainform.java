@@ -91,16 +91,11 @@ public class Mainform extends JFrame implements ActionListener, MouseListener{
 
 		JMenuBar menu = new JMenuBar();
 		JMenu Student = new JMenu("학생");
-		JMenu grade = new JMenu("성적");
-		JMenuItem grade_item = new JMenuItem("성적 정보");
 		JMenuItem detail = new JMenuItem("자세히 보기");
 		detail.addActionListener(this);
-		grade_item.addActionListener(this);
 		
 		Student.add(detail);
-		grade.add(grade_item);
 		menu.add(Student);
-		menu.add(grade);
 		setJMenuBar(menu);
 
 		down.setLayout(new BorderLayout());

@@ -135,7 +135,8 @@ public class LoginScreen extends JFrame implements ActionListener, KeyListener{
 						}
 							else {
 							stateScreen.setText("Login Successful. hello student");
-							new AfterStudentLogin(IDinput.getText());
+							AfterStudentLogin a = new AfterStudentLogin(IDinput.getText());
+							a.setVisible(true);
 							break;
 							}
 						}

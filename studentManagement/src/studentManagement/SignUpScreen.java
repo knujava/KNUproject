@@ -93,7 +93,7 @@ public class SignUpScreen extends JFrame implements ActionListener{
 						bufferedWriter = new BufferedWriter(new FileWriter(file,true));
 						bufferedWriter.append("\r\n"+LoginScreen.encrypt(IDinput.getText(), 5)+" "+LoginScreen.encrypt(String.valueOf(second.getPassword()), 5)+" false");
 						bufferedWriter.close();
-						stateScreen.setText("성공적으로 등록되었습니다");
+						stateScreen.setText("성공적으로 등록되었습니다. 창을 닫아주세요");
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
