@@ -204,26 +204,26 @@ public class StudentGrade extends JFrame implements ActionListener, MouseListene
 		String buttonString = e.getActionCommand();
 		
 		if (buttonString.contentEquals(" ")) {
-			String numi = num.getText();
-			String namei = name.getText();
-			String subjecti = subj.getText();
-			String gradei = grade.getText();
-			
-			String header[] = {"학번","이름","과목명","평점"};
-			
-			int cnt = 0;
-			
-			for(int i = 0; i < counterarrsize; i++) {
-				if(numi.equals(contents[i][0]) 
-						|| namei.equals(contents[i][1])
-						||subjecti.equals(contents[i][2]) 
-						|| gradei.equals(contents[i][3])) {
-					
-					cnt++;
-					
-					model.addRow(new Object[] {numi, namei, subjecti, gradei});
-				}
-			}
+//			String numi = num.getText();
+//			String namei = name.getText();
+//			String subjecti = subj.getText();
+//			String gradei = grade.getText();
+//			
+//			String header[] = {"학번","이름","과목명","평점"};
+//			
+//			int cnt = 0;
+//			
+//			for(int i = 0; i < counterarrsize; i++) {
+//				if(numi.equals(contents[i][0]) 
+//						|| namei.equals(contents[i][1])
+//						||subjecti.equals(contents[i][2]) 
+//						|| gradei.equals(contents[i][3])) {
+//					
+//					cnt++;
+//					
+//					model.addRow(new Object[] {numi, namei, subjecti, gradei});
+//				}
+//			}
 
 		
 
