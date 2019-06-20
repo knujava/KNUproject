@@ -5,6 +5,12 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -28,6 +34,8 @@ public class StudentGrade extends JFrame implements ActionListener{
 	private JTextField subj;
 	
 	
+	
+	
 	public StudentGrade() {
 		super("WELCOME! :::: PROFESSOR");
 		setSize(500,400);
@@ -44,7 +52,20 @@ public class StudentGrade extends JFrame implements ActionListener{
 		bar.add(usermenu);
 		setJMenuBar(bar);
 		
+		
+		Scanner inputStream = null;
+		try {
+			inputStream = new Scanner(new FileInputStream("stugrade.txt"));
+		}
+		catch(FileNotFoundException e)
+		{
+			System.out.println("no file");
+			System.exit(0);
+		}
+		String tmp = inputStream.nextLine();
+		
 		String header[] = {"학번","이름","과목명","평점"};
+		//String contents[][] = new String[100][4];
 		String contents[][] = {
 				{"2016000000", "김철수", "심리학", "4.3"},
 				{"2015000000", "조짱구", "자바", "0.7"},
@@ -52,6 +73,10 @@ public class StudentGrade extends JFrame implements ActionListener{
 				{"2018000000", "박맹구", "팔공산", "1.7"},
 				{"2019000000", "이훈", "초급교양영어", "2.7"}
 		};
+		
+
+		
+		
 		tablePanel = new JPanel();
 		
 		DefaultTableModel model = new DefaultTableModel(contents, header) {
