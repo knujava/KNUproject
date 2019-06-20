@@ -117,7 +117,8 @@ public class LoginScreen extends JFrame implements ActionListener, KeyListener{
 						isSuccess = true;
 						if(isProf) {
 							stateScreen.setText("Login Successful. hello professor");
-							
+							Mainform mainform = new Mainform();
+							mainform.setVisible(true);
 							break;
 						}
 							else {
