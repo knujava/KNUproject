@@ -94,7 +94,7 @@ public class StudentGrade extends JFrame implements ActionListener, MouseListene
 		
 		Scanner inputStream = null;
 		try {
-			inputStream = new Scanner(new FileInputStream("stugrade.txt"));
+			inputStream = new Scanner(new FileInputStream("Student.txt"));
 		}
 		catch(FileNotFoundException e)
 		{
@@ -217,9 +217,9 @@ public class StudentGrade extends JFrame implements ActionListener, MouseListene
 		String buttonString = e.getActionCommand();
 		
 		if (buttonString.contentEquals(" ")) {
-			TableCellRenderer tableCellRenderer = table.getCellRenderer(0 , 0);
-			Component c = table.prepareRenderer(tableCellRenderer, 0, 0);
-			c.setBackground(Color.CYAN);
+			//TableCellRenderer tableCellRenderer = table.getCellRenderer(0 , 0);
+			//Component c = table.prepareRenderer(tableCellRenderer, 0, 0);
+			//c.setBackground(Color.CYAN);
 			
 			//table.getComponentAt(3, 3).setBackground(Color.CYAN);
 //			String numi = num.getText();
