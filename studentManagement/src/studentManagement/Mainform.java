@@ -258,7 +258,7 @@ public class Mainform extends JFrame implements ActionListener, MouseListener{
 		else if(command.equals("자세히 보기")) {
 			// 자세히 보는 화면 띄우기
 			StudentGrade detail_show = new StudentGrade();
-			detail_show.setVisible();
+			detail_show.setVisible(true);
 		}
 	}
 

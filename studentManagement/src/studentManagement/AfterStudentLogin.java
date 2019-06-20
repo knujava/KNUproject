@@ -1,8 +1,6 @@
 package studentManagement;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -20,27 +18,19 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class AfterStudentLogin extends JFrame implements ActionListener{
+public class AfterStudentLogin extends JFrame{
 	public static final int SCREEN_WIDTH = 500;
 	public static final int SCREEN_HEIGHT = 500;
 	
-	public void actionPerformed(ActionEvent e) {
-		
-	}
 	private BorderLayout bl = new BorderLayout();
 	private JFrame AfterLoginframe = new JFrame();
-	private String SubjectName;
-	private String SubjectScore;
-	private String name;
 	private JTable table;
-	private String word;
 	private JScrollPane scrollpane;
 	
 	AfterStudentLogin(String id) throws IOException{
 		String header[] = {"과목","학점"};
 		String contents[][];
 		int i,j;
-		int rowcnt=0;
 		StringTokenizer st;
 		int linecount=0;
 		try {
@@ -77,7 +67,7 @@ public class AfterStudentLogin extends JFrame implements ActionListener{
 					table.setValueAt(contents[i][2], j, 0);
 					table.setValueAt(contents[i][3], j, 1);
 					j++;
-				}	
+				}
 			}
 			AfterLoginframe.add(scrollpane);
 			bf.close();
