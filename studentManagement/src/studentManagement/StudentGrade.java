@@ -34,6 +34,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class StudentGrade extends JFrame implements ActionListener, MouseListener{
 	
+	public static final int NUMBER_ME = 100;
 	
 	private JPanel tablePanel;
 	private JTextField num;
@@ -47,9 +48,9 @@ public class StudentGrade extends JFrame implements ActionListener, MouseListene
 	private JTable table = new JTable();
 	private DefaultTableModel model;
 	
-	String contents[][] = new String[100][4];
+	String contents[][] = new String[NUMBER_ME][4];
 	
-	
+	//private boolean colorCell[] = new boolean[NUMBER_ME];
 	
 	public StudentGrade() {
 		super("WELCOME! :::: PROFESSOR");
@@ -218,7 +219,7 @@ public class StudentGrade extends JFrame implements ActionListener, MouseListene
 				else {
 					//white
 					
-					//System.out.println("no");
+					System.out.println("no");
 				}
 			}
 		}
