@@ -1,6 +1,7 @@
 package studentManagement;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -47,15 +49,17 @@ public class StudentGrade extends JFrame implements ActionListener, MouseListene
 	
 	String contents[][] = new String[100][4];
 	
+	
+	
 	public StudentGrade() {
 		super("WELCOME! :::: PROFESSOR");
-		setSize(500,400);
+		setSize(700,900);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
 		
-		JMenu usermenu = new JMenu("분류");
+		JMenu usermenu = new JMenu("메뉴");
 		
-		JMenuItem alphaChoice = new JMenuItem("alpha");
+		JMenuItem alphaChoice = new JMenuItem("창닫기");
 		alphaChoice.addActionListener(this);
 		usermenu.add(alphaChoice);
 		
@@ -127,49 +131,61 @@ public class StudentGrade extends JFrame implements ActionListener, MouseListene
 		JLabel numps = new JLabel("학번:");
 		textPanel.add(numps);
 		
-		num = new JTextField(7);
+		num = new JTextField(9);
 		//num.setEditable(false);
 		textPanel.add(num);
 		
 		JLabel nameps = new JLabel("이름:");
 		textPanel.add(nameps);
 		
-		name = new JTextField(7);
+		name = new JTextField(9);
 		//name.setEditable(false);
 		textPanel.add(name);
 		
 		JLabel subjps = new JLabel("과목:");
 		textPanel.add(subjps);
 		
-		subj = new JTextField(7);
+		subj = new JTextField(9);
 		textPanel.add(subj);
 		
 		JLabel gradeps = new JLabel("성적:");
 		textPanel.add(gradeps);
 		
-		grade = new JTextField(7);
+		grade = new JTextField(9);
 		textPanel.add(grade);
+		
+		//JLabel blank = new JLabel(" ");
+		//textPanel.add(blank);
+		
+		//JButton searchButton = new JButton(new ImageIcon("mag.png"));
+		JButton searchButton = new JButton(" ");
+		ImageIcon magIcon = new ImageIcon("mag.png");
+		searchButton.setIcon(magIcon);
+		searchButton.addActionListener(this);
+		searchButton.setBackground(Color.WHITE);
+		textPanel.add(searchButton);
 		
 		userPanel.add(textPanel);
 		//
 		
 		//
 		JPanel buttonPanel = new JPanel();
-		buttonPanel.setLayout(new GridLayout(1, 3));
+//		buttonPanel.setLayout(new GridLayout(1, 3));
+//		
+//		JButton actionButton_add = new JButton("추가");
+//		actionButton_add.addActionListener(this);//
+//		buttonPanel.add(actionButton_add);
+//		
+//		JButton actionButton_del = new JButton("제거");
+//		actionButton_del.addActionListener(this);//
+//		buttonPanel.add(actionButton_del);
+//
 		
-		JButton actionButton_add = new JButton("추가");
-		actionButton_add.addActionListener(this);//
-		buttonPanel.add(actionButton_add);
-		
-		JButton actionButton_del = new JButton("제거");
-		actionButton_del.addActionListener(this);//
-		buttonPanel.add(actionButton_del);
-		
-		JButton actionButton_re = new JButton("저장 및 종료");
-		actionButton_re.addActionListener(this);//
-		buttonPanel.add(actionButton_re);
-		
-		userPanel.add(buttonPanel);
+//		JButton actionButton_re = new JButton("창닫기");
+//		actionButton_re.addActionListener(this);//
+//		buttonPanel.add(actionButton_re);
+//		
+//		userPanel.add(buttonPanel);
 		//
 		
 		add(userPanel, BorderLayout.SOUTH);
@@ -183,40 +199,64 @@ public class StudentGrade extends JFrame implements ActionListener, MouseListene
 		// TODO Auto-generated method stub
 		String buttonString = e.getActionCommand();
 		
-		if (buttonString.contentEquals("저장 및 종료")) {
-			
-			System.exit(0);
-		}
-		else if (buttonString.contentEquals("추가")) {
+		if (buttonString.contentEquals(" ")) {
 			String numi = num.getText();
 			String namei = name.getText();
 			String subjecti = subj.getText();
 			String gradei = grade.getText();
 			
-			if (!(numi.equals(""))||!(namei.equals(""))||!(subjecti.equals(""))||!(gradei.contentEquals("")))
-			{
-				model.addRow(new Object[] {numi, namei, subjecti, gradei});
-				//arr size fit
-				
-				//contents[rowcnt][0] = numi;
-				//contents[rowcnt][1] = namei;
-				//contents[rowcnt][2] = subjecti;
-				//contents[rowcnt][3] = gradei;
-				//rowcnt++;
-				
-				try(BufferedWriter out = new BufferedWriter(new FileWriter("stugrade.txt",true))){
-					out.append("\r\n"+numi+" "+namei+" "+subjecti+" "+ gradei);
+			for (int i = 0; i < rowcnt; i++) {
+				if(numi.equals(contents[i][0]) 
+						|| namei.equals(contents[i][1])
+						||subjecti.equals(contents[i][2]) 
+						|| gradei.equals(contents[i][3])) {
+					//#fcf695
+					
+					System.out.println("ok");
+					
 				}
-				catch(IOException d) {
-					System.out.println("no file");
-					System.exit(0);
+				else {
+					//white
+					
+					//System.out.println("no");
 				}
 			}
 		}
-		else if (buttonString.contentEquals("제거")) {
+		else if (buttonString.contentEquals("창닫기")) {
 			
-			
+			setVisible(false);
 		}
+		
+//		else if (buttonString.contentEquals("추가")) {
+//			String numi = num.getText();
+//			String namei = name.getText();
+//			String subjecti = subj.getText();
+//			String gradei = grade.getText();
+//			
+//			if (!(numi.equals(""))||!(namei.equals(""))||!(subjecti.equals(""))||!(gradei.contentEquals("")))
+//			{
+//				model.addRow(new Object[] {numi, namei, subjecti, gradei});
+//				//arr size fit
+//				
+//				//contents[rowcnt][0] = numi;
+//				//contents[rowcnt][1] = namei;
+//				//contents[rowcnt][2] = subjecti;
+//				//contents[rowcnt][3] = gradei;
+//				//rowcnt++;
+//				
+//				try(BufferedWriter out = new BufferedWriter(new FileWriter("stugrade.txt",true))){
+//					out.append("\r\n"+numi+" "+namei+" "+subjecti+" "+ gradei);
+//				}
+//				catch(IOException d) {
+//					System.out.println("no file");
+//					System.exit(0);
+//				}
+//			}
+//		}
+//		else if (buttonString.contentEquals("제거")) {
+//			
+//			
+//		}
 		
 	}
 
